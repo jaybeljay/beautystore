@@ -1,0 +1,26 @@
+<div class='col-lg-3'>
+	<div class='product-item'>
+		<div>
+			<a href="{% url 'product' product.id %}">
+			<img src='{{ product.image.url }}' class='img-fluid'>
+			</a>
+		</div>
+		{% if product.discount %}
+			<div class='discount-container'>
+			<span>{{ product.discount }}%</span>
+			</div>
+		{% endif %}
+		<h4>{{ product.name }}</h4>
+		<p>
+			{{ product.description }}
+		</p>
+		<div class='price'>
+			{{ product.price }} RUB
+		</div>
+		<form class='add-to-cart-btn' action="{% url 'product' product.id %}">
+			<button class="btn shopping">
+			Add to Cart
+			</button>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+	<div class="card">
+	  <div class="card-header">
+		Account Info
+	  </div>
+	  <div class="card-body">
+		<form action="{{ profile.get_update_url }}" method="POST">{% csrf_token %}
+			{{ user_form.as_p }}
+			{{ profile_form.as_p }}
+			<input type="submit" class="btn btn-success" value="Save changes">
+			<a class="btn btn-danger" href="{{ profile.get_delete_url }}" role="button">Delete account</a>
+		</form>
+	  </div>
+	</div>
+{% endblock %}

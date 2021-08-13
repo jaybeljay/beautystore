@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="formdiv" style="padding: 1.5rem;">
+	<form class="row g-3" id='search-form' method='GET' action=''>
+		<div class="col-md-6">
+			<label for="productName" class="form-label">Product name</label>
+			<input type="search" class="form-control" name="q-text" id="productName">
+		</div>
+		<div class="col-md-6">
+		  <label for="category" class="form-label">Category</label>
+		  <select id="category" name="q-cat" class="form-control">
+			<option selected>Choose...</option>
+			{% for category in categories %}
+				<option>{{ category.name }}</option>
+			{% endfor %}
+		  </select>
+		</div>
+		<div class="col-md-6">
+		  <label for="priceMin">From, RUB</label>
+		  <input type="number" min="{{ minprice.minprice }}" max="{{ maxprice.maxprice }}" value="{{ minprice.minprice }}" class="form-control" id="priceMin" name="q-price-min">
+		</div>
+		<div class="col-md-6">
+		  <label for="priceMax">To, RUB</label>
+		  <input type="number" min="{{ minprice.minprice }}" max="{{ maxprice.maxprice }}" value="{{ maxprice.maxprice }}" class="form-control" id="priceMax" name="q-price-max">
+		</div>
+		<div class="col-md-2">
+			<button type="submit" class="btn shopping">SEARCH</button>
+			<a class="btn shopping" href="{% url 'reset' %}">RESET</a>
+		</div>
+	</form>
+	<div class='section section1 section-top'>
+		<div class='container'>
+			<div class='row'>
+				{% for product in products %}
+					{% include 'products/product_item.html' %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>	
+
+{% endblock %}

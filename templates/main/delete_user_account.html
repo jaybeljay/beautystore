@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+	<form method="post">{% csrf_token %}
+		<p>Are you sure you want to delete your account?</p>
+		<input type="submit" class="btn btn-danger" value="Delete">
+		<a class="btn btn-primary" href="{{ profile.get_absolute_url }}" role="button">Return</a>
+	</form>
+{% endblock %}

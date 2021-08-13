@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+	<div class='container'>
+		<div class='row'>
+			<div class='col-lg-12'>
+				<h3 class='text-center'>Your favorite products:</h3>
+				{% if favorites_in_cart %}
+					<table class='table text-center'>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Price</th>
+							</tr>
+						</thead>
+					<tbody>
+						{% for favorite_in_cart in favorites_in_cart %}
+							<tr>
+								<td>
+									{{ favorite_in_cart.obj.name }}
+								</td>
+								<td>
+									<span class='product_price'>
+										{{ favorite_in_cart.obj.price }}
+									</span>
+								</td>
+								<td>
+									
+								</td>
+								<td>
+									<form action="{% url 'product' favorite_in_cart.obj.id %}">
+										<button class="btn shopping">
+											Add to Cart
+										</button>
+									</form>
+								</td>
+								<td>
+									<a class="btn-close" href="{% url 'delete_item' %}" data-id="{{ favorite_in_cart.id }}" data-type="favoriteproduct" role="button" style="font-size: 20px;"></a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+					</table>
+				{% else %}
+					<h5 class='text-center'><i>No favorite products yet.</i></h5>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

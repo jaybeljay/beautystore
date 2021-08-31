@@ -13,8 +13,7 @@ def home(request):
 
 def product_category(request, slug):
     category = ProductCategory.objects.get(slug=slug)
-    products_active = Product.objects.filter(is_active=True)
-    products = products_active.filter(category__slug=slug)
+    products = Product.objects.filter(category__slug=slug, is_active=True)
     return render(request, 'products/category.html', {'products': products, 'category': category})
 
 

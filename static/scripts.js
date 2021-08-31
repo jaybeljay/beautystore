@@ -114,9 +114,9 @@ $(document).ready(function(){
 			data: {'obj': product_id, 'csrfmiddlewaretoken': csrf_token},
 			success: function(json) {
 				console.log('OK');
-				console.log(json.result);
-				console.log(json.count);
-				$('#favorite_products').find('[data-count="favorite"]').text(json.count);
+				console.log(json.favorites_nmb);
+				console.log(json.favorites);
+				$('#favorite_products').find('[data-count="favorite"]').text(json.favorites_nmb);
 				$('.favorite-cart').closest('span i').remove();
 				$('.favorite-cart ul').html("");
 				$.each(json.favorites, function(k, v){

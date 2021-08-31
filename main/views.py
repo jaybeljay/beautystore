@@ -1,12 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import DetailView
 from django.views.generic.edit import DeleteView
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 
 from .models import Profile
 from .forms import CreateUserForm, UpdateUserForm, UpdateProfileForm
@@ -19,16 +17,16 @@ def registerPage(request):
         form = CreateUserForm()
         
         if request.method == 'POST':
-        
+
             form = CreateUserForm(request.POST)
-            
+
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Account was successfully created!')
                 return redirect('login')
             else:
                 print(form.errors)
-                
+
         return render(request, 'main/register.html', {'form': form})
     
 
@@ -39,16 +37,16 @@ def loginPage(request):
         if request.method == 'POST':
             username = request.POST.get('username')
             password = request.POST.get('password')
-            
+
             user = authenticate(request, username=username, password=password)
-            
+
             if user is not None:
                 login(request, user)
                 return redirect('home')
             else:
                 messages.info(request, 'Username or password is incorrect')
                 return render(request, 'main/login.html')
-                
+
         return render(request, 'main/login.html')
     
 
@@ -65,7 +63,7 @@ class UserAccount(DetailView):
 
 class EditUserAccount(View):
     template_name = 'main/edit_user_account.html'
-    
+
     def get(self, request, pk):
         user = request.user
         profile = Profile.objects.get(user=user)
@@ -73,7 +71,7 @@ class EditUserAccount(View):
         profile_form = UpdateProfileForm(instance=profile)
         return render(request, self.template_name, {'user_form': user_form, 'profile_form': profile_form,
                                                     'user': user, 'profile': profile})
-        
+
     def post(self, request, pk):
         user = request.user
         profile = Profile.objects.get(user=user)

@@ -1,4 +1,3 @@
-from django.contrib.auth import authenticate
 from django.db.models import Sum
 
 from .models import ProductInCart, FavoriteProduct
